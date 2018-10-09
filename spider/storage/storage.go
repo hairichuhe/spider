@@ -41,7 +41,7 @@ type Storage interface {
 	SetCookies(u *url.URL, cookies string)
 }
 
-// InMemoryStorage is the default storage backend of colly.
+// InMemoryStorage is the default storage backend of spider.
 // InMemoryStorage keeps cookies and visited urls in memory
 // without persisting data on the disk.
 type InMemoryStorage struct {

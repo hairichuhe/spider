@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package colly implements a HTTP scraping framework
-package colly
+// Package spider implements a HTTP scraping framework
+package spider
 
 import (
 	"bytes"
@@ -47,8 +47,8 @@ import (
 	"github.com/kennygrant/sanitize"
 	"github.com/temoto/robotstxt"
 
-	"github.com/gocolly/colly/debug"
-	"github.com/gocolly/colly/storage"
+	"spider/spider/debug"
+	"spider/spider/storage"
 )
 
 // Collector provides the scraper instance for a scraping job
@@ -94,7 +94,7 @@ type Collector struct {
 	// be sure all requests have been finished.
 	Async bool
 	// ParseHTTPErrorResponse allows parsing HTTP responses with non 2xx status codes.
-	// By default, Colly parses only successful HTTP responses. Set ParseHTTPErrorResponse
+	// By default, spider parses only successful HTTP responses. Set ParseHTTPErrorResponse
 	// to true to enable it.
 	ParseHTTPErrorResponse bool
 	// ID is the unique identifier of a collector
@@ -363,7 +363,7 @@ func Debugger(d debug.Debugger) func(*Collector) {
 // Init initializes the Collector's private variables and sets default
 // configuration for the Collector
 func (c *Collector) Init() {
-	c.UserAgent = "colly - https://github.com/gocolly/colly"
+	c.UserAgent = "spider - https://github.com/gocolly/colly"
 	c.MaxDepth = 0
 	c.store = &storage.InMemoryStorage{}
 	c.store.Init()
@@ -385,7 +385,7 @@ func (c *Collector) Init() {
 // Google App Engine. Example:
 //   func startScraper(w http.ResponseWriter, r *http.Request) {
 //     ctx := appengine.NewContext(r)
-//     c := colly.NewCollector()
+//     c := spider.NewCollector()
 //     c.Appengine(ctx)
 //      ...
 //     c.Visit("https://google.ca")
@@ -1159,7 +1159,7 @@ func (c *Collector) checkRedirectFunc() func(req *http.Request, via []*http.Requ
 
 func (c *Collector) parseSettingsFromEnv() {
 	for _, e := range os.Environ() {
-		if !strings.HasPrefix(e, "COLLY_") {
+		if !strings.HasPrefix(e, "spider_") {
 			continue
 		}
 		pair := strings.SplitN(e[6:], "=", 2)

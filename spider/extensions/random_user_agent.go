@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/gocolly/colly"
+	"spider/spider"
 )
 
 var uaGens = []func() string{
@@ -13,8 +13,8 @@ var uaGens = []func() string{
 }
 
 // RandomUserAgent generates a random browser user agent on every request
-func RandomUserAgent(c *colly.Collector) {
-	c.OnRequest(func(r *colly.Request) {
+func RandomUserAgent(c *spider.Collector) {
+	c.OnRequest(func(r *spider.Request) {
 		r.Headers.Set("User-Agent", uaGens[rand.Intn(len(uaGens))]())
 	})
 }

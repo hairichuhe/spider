@@ -20,7 +20,7 @@ import (
 	"net/url"
 	"sync/atomic"
 
-	"github.com/gocolly/colly"
+	"spider/spider"
 )
 
 type roundRobinSwitcher struct {
@@ -31,7 +31,7 @@ type roundRobinSwitcher struct {
 func (r *roundRobinSwitcher) GetProxy(pr *http.Request) (*url.URL, error) {
 	u := r.proxyURLs[r.index%uint32(len(r.proxyURLs))]
 	atomic.AddUint32(&r.index, 1)
-	ctx := context.WithValue(pr.Context(), colly.ProxyURLKey, u.String())
+	ctx := context.WithValue(pr.Context(), spider.ProxyURLKey, u.String())
 	*pr = *pr.WithContext(ctx)
 	return u, nil
 }
@@ -41,7 +41,7 @@ func (r *roundRobinSwitcher) GetProxy(pr *http.Request) (*url.URL, error) {
 // The proxy type is determined by the URL scheme. "http", "https"
 // and "socks5" are supported. If the scheme is empty,
 // "http" is assumed.
-func RoundRobinProxySwitcher(ProxyURLs ...string) (colly.ProxyFunc, error) {
+func RoundRobinProxySwitcher(ProxyURLs ...string) (spider.ProxyFunc, error) {
 	urls := make([]*url.URL, len(ProxyURLs))
 	for i, u := range ProxyURLs {
 		parsedU, err := url.Parse(u)

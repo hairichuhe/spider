@@ -29,11 +29,11 @@ var scraperHeadTemplate = `package main
 import (
 	"log"
 
-	"github.com/gocolly/colly"
+	"spider/spider"
 )
 
 func main() {
-	c := colly.NewCollector()
+	c := spider.NewCollector()
 `
 
 var scraperEndTemplate = `
@@ -42,31 +42,31 @@ var scraperEndTemplate = `
 `
 
 var htmlCallbackTemplate = `
-	c.OnHTML("element-selector", func(e *colly.HTMLElement) {
+	c.OnHTML("element-selector", func(e *spider.HTMLElement) {
 		log.Println(e.Text)
 	})
 `
 
 var requestCallbackTemplate = `
-	c.OnRequest("element-selector", func(r *colly.Request) {
+	c.OnRequest("element-selector", func(r *spider.Request) {
 		log.Println("Visiting", r.URL)
 	})
 `
 
 var responseCallbackTemplate = `
-	c.OnResponse("element-selector", func(r *colly.Response) {
+	c.OnResponse("element-selector", func(r *spider.Response) {
 		log.Println("Visited", r.Request.URL, r.StatusCode)
 	})
 `
 
 var errorCallbackTemplate = `
-	c.OnError("element-selector", func(r *colly.Response, err error) {
+	c.OnError("element-selector", func(r *spider.Response, err error) {
 		log.Printf("Error on %s: %s", r.Request.URL, err)
 	})
 `
 
 func main() {
-	app := cli.App("colly", "Scraping Framework for Gophers")
+	app := cli.App("spider", "Scraping Framework for Gophers")
 
 	app.Command("new", "Create new scraper", func(cmd *cli.Cmd) {
 		var (

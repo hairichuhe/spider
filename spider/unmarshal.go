@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package colly
+package spider
 
 import (
 	"errors"
@@ -22,7 +22,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// Unmarshal is a shorthand for colly.UnmarshalHTML
+// Unmarshal is a shorthand for spider.UnmarshalHTML
 func (h *HTMLElement) Unmarshal(v interface{}) error {
 	return UnmarshalHTML(v, h.DOM)
 }

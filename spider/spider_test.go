@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package colly
+package spider
 
 import (
 	"bytes"
@@ -27,7 +27,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 
-	"github.com/gocolly/colly/debug"
+	"spider/spider/debug"
 )
 
 var serverIndexResponse = []byte("hello world\n")
@@ -572,8 +572,8 @@ func TestEnvSettings(t *testing.T) {
 	ts := newTestServer()
 	defer ts.Close()
 
-	os.Setenv("COLLY_USER_AGENT", "test")
-	defer os.Unsetenv("COLLY_USER_AGENT")
+	os.Setenv("spider_USER_AGENT", "test")
+	defer os.Unsetenv("spider_USER_AGENT")
 
 	c := NewCollector()
 
@@ -632,7 +632,7 @@ func TestHTMLElement(t *testing.T) {
 		Ctx: ctx,
 	}
 
-	in := `<a href="http://go-colly.org">Colly</a>`
+	in := `<a href="http://go-spider.org">spider</a>`
 	sel := "a[href]"
 	doc, err := goquery.NewDocumentFromReader(bytes.NewBuffer([]byte(in)))
 	if err != nil {
@@ -654,11 +654,11 @@ func TestHTMLElement(t *testing.T) {
 	if v.Name != "a" {
 		t.Errorf("element tag mismatch. got %s, expected %s.\n", v.Name, "a")
 	}
-	if v.Text != "Colly" {
-		t.Errorf("element content mismatch. got %s, expected %s.\n", v.Text, "Colly")
+	if v.Text != "spider" {
+		t.Errorf("element content mismatch. got %s, expected %s.\n", v.Text, "spider")
 	}
-	if v.Attr("href") != "http://go-colly.org" {
-		t.Errorf("element href mismatch. got %s, expected %s.\n", v.Attr("href"), "http://go-colly.org")
+	if v.Attr("href") != "http://go-spider.org" {
+		t.Errorf("element href mismatch. got %s, expected %s.\n", v.Attr("href"), "http://go-spider.org")
 	}
 }
 
