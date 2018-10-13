@@ -14,7 +14,7 @@ func main() {
 	)
 
 	// On every a element which has href attribute call callback
-	c.OnHTML("a[href]", func(e *spider.HTMLElement) {
+	c.OnHTML("ul.Expand_SearchSLisi a[href]", func(e *spider.HTMLElement) {
 		link := e.Attr("href")
 		// Print link
 		fmt.Println("Link found: %q -> %s\n", e.Text, link)
