@@ -1,11 +1,7 @@
 package main
 
 import (
-	"encoding/base64"
-	"net/http"
-	"strings"
-	"zyjsxy-api/database"
-	"zyjsxy-api/util/aes"
+	"spider/rule/gszfcg"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,5 +9,5 @@ import (
 func initRouter() *gin.Engine {
 	r := gin.Default()
 
-	r.GET("/api/user/info", system.GetSelfInfoApi)
+	r.GET("/api/gszfcg/get", gszfcg.GetInfoApi)
 }
