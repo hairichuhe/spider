@@ -10,4 +10,5 @@ func initRouter() *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/api/gszfcg/get", gszfcg.GetInfoApi)
+	return r
 }
